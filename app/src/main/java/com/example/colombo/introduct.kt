@@ -23,28 +23,30 @@ class introduct : AppCompatActivity() {
 
         videoView = findViewById(R.id.videoView)
 
-        // Set video file path or URL
+
         val videoPath = "android.resource://" + packageName + "/" + R.raw.intro
 
-        // Set video Uri
+
         videoView.setVideoURI(Uri.parse(videoPath))
 
-        // Start playing the video
+
         videoView.start()
 
-        // Loop the video
+        videoView.setOnClickListener {
+            val intent = Intent(this@introduct, menu::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+
+
         videoView.setOnCompletionListener {
             val intent = Intent(this@introduct, menu::class.java)
             startActivity(intent)
-            finish() // Optional: Finish the current activity to prevent returning to it with the back button
+            finish()
         }
 
-//        nextButton.setOnClickListener {
-//            val intent = Intent(this@introduct, menu::class.java)
-//            startActivity(intent)
-//            finish()
-//
-//        }
+
 
     }
 

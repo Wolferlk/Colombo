@@ -1,10 +1,12 @@
 package com.example.colombo
 
+import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.VideoView
 import android.net.Uri
+import android.widget.Button
 
 class menu : AppCompatActivity() {
     private lateinit var videoView2: VideoView
@@ -34,5 +36,34 @@ class menu : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.wild)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+
+
+
+        val startbtn: Button = findViewById(R.id.start)
+        startbtn.setOnClickListener {
+            val intent = Intent(this@menu, game::class.java)
+            startActivity(intent)
+            mediaPlayer.stop()
+
+        }
+
+        val exitButton: Button = findViewById(R.id.exit)
+        exitButton.setOnClickListener {
+            mediaPlayer.stop()
+            finish() // This will close the current activity and exit the app
+        }
+
+        val aboutButton: Button = findViewById(R.id.about)
+        aboutButton.setOnClickListener {
+            val intent = Intent(this@menu, about::class.java)
+            startActivity(intent)
+            mediaPlayer.stop()
+
+        }
+
+
     }
+
+
+
 }
