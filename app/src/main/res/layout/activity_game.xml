@@ -90,6 +90,7 @@
             android:background="@color/cardview_shadow_start_color"
             android:backgroundTint="#FF0000"
             android:textColor="#FFFFFF"
+            android:textSize="50dp"
             android:text="New Game">
 
         </Button>
@@ -228,7 +229,7 @@
                 android:background="@color/cardview_shadow_start_color"
                 android:backgroundTint="#FF0000"
                 android:textColor="#FFFFFF"
-                android:text="RIGHT"></Button>
+                android:text="RIGHT "></Button>
 
 
 

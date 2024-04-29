@@ -35,7 +35,7 @@
         android:text="@string/aboutpara"
         android:layout_gravity="center"
         android:textColor="@color/white"
-        android:width="600dp"
+        android:width="700dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
