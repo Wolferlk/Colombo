@@ -28,6 +28,18 @@
 
     </Button>
 
+    <Button
+        android:id="@+id/backMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="X"
+        android:background="@color/cardview_shadow_start_color"
+        android:backgroundTint="#FF0000"
+        android:textColor="#FFFFFF"/>
+
+
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -75,7 +87,9 @@
             android:layout_marginTop="61dp"
             android:layout_marginEnd="217dp"
             android:layout_marginBottom="163dp"
-            android:background="@color/red"
+            android:background="@color/cardview_shadow_start_color"
+            android:backgroundTint="#FF0000"
+            android:textColor="#FFFFFF"
             android:text="New Game">
 
         </Button>
@@ -88,9 +102,12 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="291dp"
             android:layout_marginTop="255dp"
-            android:background="@color/red"
             android:text="Resume Game"
-            android:textAlignment="center">
+            android:background="@color/cardview_shadow_start_color"
+            android:backgroundTint="#FF0000"
+            android:textColor="#FFFFFF"
+            android:textAlignment="center"
+            android:visibility="invisible">
 
         </Button>
 
@@ -131,9 +148,9 @@
             android:layout_marginTop="9dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="19dp"
-
             android:gravity="center"
             tools:ignore="MissingConstraints">
+
 
         </RelativeLayout>
             <Button

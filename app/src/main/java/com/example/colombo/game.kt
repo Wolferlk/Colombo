@@ -31,6 +31,11 @@ class game : AppCompatActivity() {
 
     private lateinit var buttonPlay: Button
 
+    private val sharedPreferences by lazy {
+        getSharedPreferences("MyPrefs", MODE_PRIVATE)
+    }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,12 +58,14 @@ class game : AppCompatActivity() {
         val score2 = findViewById<Button>(R.id.score2)
         val meat = ImageView(this)
         val snake = ImageView(this)
-        val snakeSegments =
-            mutableListOf(snake) // Keep track of the position of each snake segment
+        val snakeSegments = mutableListOf(snake) // Keep track of the position of each boamb segment
         val handler = Handler()
-        var delayMillis = 30L // Update snake position every 100 milliseconds
+        var delayMillis = 30L // Update boamb position every 100 milliseconds
         var currentDirection = "right" // Start moving right by default
         var scorex = 0
+        var scorexs = sharedPreferences.getInt("score", 0)
+
+        score2.text = "Score: $scorexs"
 
         board.visibility = View.INVISIBLE
         playagain.visibility = View.INVISIBLE
@@ -80,9 +87,11 @@ class game : AppCompatActivity() {
             snake.layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
+
             )
             board.addView(snake)
-            snakeSegments.add(snake) // Add the new snake segment to the list
+            mediaPlayerover.stop()
+            snakeSegments.add(snake) // Add the new boamb segment to the list
 
 
             var snakeX = snake.x
@@ -100,20 +109,15 @@ class game : AppCompatActivity() {
             )
             board.addView(meat)
 
-            val random = Random() // create a Random object
+            val random = Random()
             val randomX =
-                random.nextInt(801) - 400 // generate a random x-coordinate between -400 and 400
+                random.nextInt(401) - 400 // generate a random x-coordinate between -400 and 400
             val randomY =
-                random.nextInt(801) - 400 // generate a random y-coordinate between -400 and 400
+                random.nextInt(401) - 400// generate a random y-coordinate between -400 and 400
 
 
             meat.x = randomX.toFloat()
             meat.y = randomY.toFloat()
-
-
-
-
-
 
 
 
@@ -125,10 +129,10 @@ class game : AppCompatActivity() {
 
                 val distance = sqrt((snake.x - meat.x).pow(2) + (snake.y - meat.y).pow(2))
 
-                if (distance < distanceThreshold) { // Check if the distance between the snake head and the meat is less than the threshold
+                if (distance < distanceThreshold) {
 
                     val newSnake =
-                        ImageView(this) // Create a new ImageView for the additional snake segment
+                        ImageView(this) // Create a new boamb segment
                     newSnake.setImageResource(R.drawable.ic_launcher_foreground)
                     newSnake.layoutParams = ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -154,7 +158,13 @@ class game : AppCompatActivity() {
                     delayMillis-- // Reduce delay value by 1
                     scorex++
 
-                    score2.text =   "score : " + scorex.toString() // Update delay text view
+                    score2.text = "Score: $scorex"
+                    saveScore(scorex)
+
+                    //score2.text =   "score : " + scorex.toString() // Update delay text view
+                    //score2.text = "Score: $scorexs"
+
+
 
 
 
@@ -168,12 +178,6 @@ class game : AppCompatActivity() {
 
 
                 override fun run() {
-
-
-
-
-
-
 
                     for (i in snakeSegments.size - 1 downTo 1) { // Update the position of each snake segment except for the head
                         snakeSegments[i].x = snakeSegments[i - 1].x
@@ -310,7 +314,17 @@ class game : AppCompatActivity() {
                 recreate()
             }
 
+            val backMenuButton = findViewById<Button>(R.id.backMenu)
+            backMenuButton.setOnClickListener {
+                val intent = Intent(this@game, menu::class.java)
+                startActivity(intent)
+                finish()
+            }
+
         }
+
+
+
 
 
 
@@ -331,33 +345,6 @@ class game : AppCompatActivity() {
         mediaPlayerInPlane.isLooping = true
         mediaPlayerInPlane.start()
 
-//        buttonPlay.setOnClickListener {
-//            val intent = Intent(this@game, PlayGame::class.java)
-//            startActivity(intent)
-//            finish()
-//            Log.d("GameActivity", "Button click") // Corrected log syntax
-//        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -365,5 +352,11 @@ class game : AppCompatActivity() {
         super.onDestroy()
         videoViewGame.stopPlayback()
         mediaPlayerInPlane.release() // Release media player resources
+    }
+
+    private fun saveScore(score: Int) {
+        val editor = sharedPreferences.edit()
+        editor.putInt("score", score)
+        editor.apply()
     }
 }
