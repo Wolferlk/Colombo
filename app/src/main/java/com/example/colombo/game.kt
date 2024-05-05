@@ -58,10 +58,10 @@ class game : AppCompatActivity() {
         val score2 = findViewById<Button>(R.id.score2)
         val meat = ImageView(this)
         val snake = ImageView(this)
-        val snakeSegments = mutableListOf(snake) // Keep track of the position of each boamb segment
+        val snakeSegments = mutableListOf(snake)
         val handler = Handler()
-        var delayMillis = 30L // Update boamb position every 100 milliseconds
-        var currentDirection = "right" // Start moving right by default
+        var delayMillis = 30L
+        var currentDirection = "right"
         var scorex = 0
         var scorexs = sharedPreferences.getInt("score", 0)
 
@@ -91,7 +91,7 @@ class game : AppCompatActivity() {
             )
             board.addView(snake)
             mediaPlayerover.stop()
-            snakeSegments.add(snake) // Add the new boamb segment to the list
+            snakeSegments.add(snake)
 
 
             var snakeX = snake.x
@@ -111,9 +111,9 @@ class game : AppCompatActivity() {
 
             val random = Random()
             val randomX =
-                random.nextInt(401) - 400 // generate a random x-coordinate between -400 and 400
+                random.nextInt(501) - 400
             val randomY =
-                random.nextInt(401) - 400// generate a random y-coordinate between -400 and 400
+                random.nextInt(501) - 400
 
 
             meat.x = randomX.toFloat()
@@ -125,6 +125,7 @@ class game : AppCompatActivity() {
 
             fun checkFoodCollision() {
                 mediaPlayercatch = MediaPlayer.create(this, R.raw.nc)
+
                 val distanceThreshold = 50
 
                 val distance = sqrt((snake.x - meat.x).pow(2) + (snake.y - meat.y).pow(2))
@@ -155,7 +156,7 @@ class game : AppCompatActivity() {
                     meat.y = randomY.toFloat()
 
 
-                    delayMillis-- // Reduce delay value by 1
+                    delayMillis--
                     scorex++
 
                     score2.text = "Score: $scorex"
@@ -179,7 +180,7 @@ class game : AppCompatActivity() {
 
                 override fun run() {
 
-                    for (i in snakeSegments.size - 1 downTo 1) { // Update the position of each snake segment except for the head
+                    for (i in snakeSegments.size - 1 downTo 1) {
                         snakeSegments[i].x = snakeSegments[i - 1].x
                         snakeSegments[i].y = snakeSegments[i - 1].y
                     }
@@ -189,8 +190,8 @@ class game : AppCompatActivity() {
                         "up" -> {
                             snakeY -= 10
 
-                            if (snakeY < -490) { // Check if the ImageView goes off the top of the board
-                                snakeY = -490f
+                            if (snakeY < -290) { // Check if the ImageView goes off the top of the board
+                                snakeY = -290f
                                 border.setBackgroundColor(getResources().getColor(R.color.red))
                                 mediaPlayerover.start()
 
@@ -198,7 +199,7 @@ class game : AppCompatActivity() {
                                 currentDirection = "pause"
 //                                lilu.visibility = View.INVISIBLE
 
-                                score.text =   "your score is  " + scorex.toString() // Update delay text view
+                                score.text =   "your score is  " + scorex.toString()
                                 score.visibility = View.VISIBLE
                                 score2.visibility = View.INVISIBLE
 
@@ -213,8 +214,8 @@ class game : AppCompatActivity() {
                         "down" -> {
                             snakeY += 10
                             val maxY =
-                                board.height / 2 - snake.height + 30 // Calculate the maximum y coordinate
-                            if (snakeY > maxY) { // Check if the ImageView goes off the bottom of the board
+                                board.height / 2 - snake.height + 30
+                            if (snakeY > maxY) {
                                 snakeY = maxY.toFloat()
                                 border.setBackgroundColor(getResources().getColor(R.color.red))
                                 mediaPlayerover.start()
@@ -222,7 +223,7 @@ class game : AppCompatActivity() {
                                 currentDirection = "pause"
 //                                lilu.visibility = View.INVISIBLE
 
-                                score.text =   "your score is  " + scorex.toString() // Update delay text view
+                                score.text =   "your score is  " + scorex.toString()
                                 score.visibility = View.VISIBLE
                                 score2.visibility = View.INVISIBLE
 
@@ -232,14 +233,14 @@ class game : AppCompatActivity() {
                         }
                         "left" -> {
                             snakeX -= 10
-                            if (snakeX < -490) { // Check if the ImageView goes off the top of the board
+                            if (snakeX < -490) {
                                 snakeX = -490f
                                 border.setBackgroundColor(getResources().getColor(R.color.red))
                                 mediaPlayerover.start()
                                 playagain.visibility = View.VISIBLE
                                 currentDirection = "pause"
 //                                lilu.visibility = View.INVISIBLE
-                                score.text =   "your score is  " + scorex.toString() // Update delay text view
+                                score.text =   "your score is  " + scorex.toString()
                                 score.visibility = View.VISIBLE
                                 score2.visibility = View.INVISIBLE
 
@@ -250,17 +251,16 @@ class game : AppCompatActivity() {
                         }
                         "right" -> {
                             snakeX += 10
-                            val maxX =
-                                board.height / 2 - snake.height + 30 // Calculate the maximum y coordinate
-                            if (snakeX > maxX) { // Check if the ImageView goes off the bottom of the board
-                                snakeX = maxX.toFloat()
+                            val maxX = board.height / 2 - snake.height + 30
+                            if (snakeX > 500) {
+                                snakeX = 500.toFloat()
                                 border.setBackgroundColor(getResources().getColor(R.color.red))
                                 mediaPlayerover.start()
                                 playagain.visibility = View.VISIBLE
                                 currentDirection = "pause"
 //                                lilu.visibility = View.INVISIBLE
 
-                                score.text =   "your score is  " + scorex.toString() // Update delay text view
+                                score.text =   "your score is  " + scorex.toString()
                                 score.visibility = View.VISIBLE
                                 score2.visibility = View.INVISIBLE
 
@@ -282,7 +282,7 @@ class game : AppCompatActivity() {
 
             handler.postDelayed(runnable, delayMillis)
 
-// Set button onClickListeners to update the currentDirection variable when pressed
+
             upButton.setOnClickListener {
                 currentDirection = "up"
             }
